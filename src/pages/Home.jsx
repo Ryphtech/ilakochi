@@ -162,9 +162,9 @@ export default function Home() {
       </div>
 
       {/* --- MOBILE VIEW (Lush Green) --- */}
-      <div className="flex md:hidden relative flex-1 flex-col overflow-hidden w-full bg-[#1a3c28] text-[#f0f2e6]">
+      <div className="flex md:hidden relative flex-1 flex-col overflow-hidden w-full bg-[#102213] text-[#f0f2e6]">
         {/* Header */}
-        <header className="flex items-center justify-between px-6 py-5 z-50 sticky top-0 bg-[#1a3c28]/95 backdrop-blur-sm border-b border-white/5">
+        <header className="flex items-center justify-between px-6 py-5 z-50 sticky top-0 bg-[#102213]/95 backdrop-blur-sm border-b border-white/5">
           <button 
             className="text-[#f0f2e6]/80 hover:text-[#f2cc0d] transition-colors p-2 -ml-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -182,7 +182,7 @@ export default function Home() {
 
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className="absolute top-[80px] left-0 w-full bg-[#132f1f] border-b border-[#f2cc0d]/20 shadow-2xl z-40 flex flex-col py-6 px-10 gap-6 animate-fade-in-down">
+          <div className="absolute top-[80px] left-0 w-full bg-[#102213] border-b border-[#f2cc0d]/20 shadow-2xl z-40 flex flex-col py-6 px-10 gap-6 animate-fade-in-down">
             <Link onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold tracking-widest uppercase hover:text-[#f2cc0d] transition-colors" to="/">Home</Link>
             <Link onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold tracking-widest uppercase hover:text-[#f2cc0d] transition-colors" to="/menu">Menu</Link>
             <Link onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold tracking-widest uppercase hover:text-[#f2cc0d] transition-colors" to="/about">Our Story</Link>
@@ -192,17 +192,17 @@ export default function Home() {
         )}
 
         {/* Main Content Scroll Area */}
-        <main className="flex-1 overflow-y-auto scrollbar-hide pb-24 relative bg-[#132f1f]/50">
+        <main className="flex-1 overflow-y-auto scrollbar-hide pb-24 relative bg-[#102213]/50">
           
           {/* Hero Section with Leaf Texture Background */}
           <div className="relative w-full flex flex-col items-center pt-8 pb-12 px-6">
             <div className="absolute inset-0 z-0 opacity-10 bg-[url('https://placeholder.pics/svg/400')] bg-repeat bg-[length:200px]"></div>
             
-            {/* Circular Image Container */}
+            {/* Logo Container */}
             <div className="relative z-10 mb-8 mt-4 group">
               <div className="absolute inset-0 bg-[#f2cc0d]/20 rounded-full blur-xl transform scale-110 shadow-lg"></div>
-              <div className="w-64 h-64 rounded-full border-4 border-[#f2cc0d]/30 overflow-hidden relative shadow-2xl shadow-black/50">
-                <img alt="Kerala fish curry in clay pot" className="w-full h-full object-cover transform hover:scale-110 transition-duration-700 duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyg2qKoqChp3hFu8rOf5s7kl3ZkzwdQqpFa7B9YAqYO4h-WIQHa5NzBctvfSJG-tHenHDzLRp9JCJMeAs_5yhv9yS9HSlxAA1e5P4jOCviWhATYzD7sdw7I8ubU7hOdl0neStjtfS50TZp7D0ypMB43vtdTpGc7JB2gSuMYUFLYRxtGHaofHaMwazvE5Q1AbH1Q06lszU6zYn0UcjYXLloHe7aJpvQMxgq-cTtj47htGuDfkD_vAXrku8EEtGKLm9x-DcaVIG8o-A"/>
+              <div className="w-64 h-64 rounded-full border-4 border-[#f2cc0d]/30 overflow-hidden relative shadow-2xl shadow-black/50 bg-[#102213] flex items-center justify-center p-8">
+                <img alt="Ila Kochi Logo" className="w-full h-full object-contain" src="/logo.png"/>
               </div>
             </div>
             
@@ -247,16 +247,99 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Todays Special */}
-          <div className="px-6 mb-8 relative z-10">
-            <div className="bg-[#132f1f] border border-white/5 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
+          {/* Why Ila Kochi - Feature Highlights */}
+          <div className="px-6 mb-10 relative z-10">
+            <h3 className="text-[#f2cc0d] text-xs font-bold uppercase tracking-[0.2em] mb-6">Why Ila Kochi</h3>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/5 border border-white/5">
+                <div className="w-10 h-10 rounded-full bg-[#f2cc0d]/10 flex items-center justify-center mb-3">
+                  <span className="material-symbols-outlined text-[#f2cc0d] text-[20px]">eco</span>
+                </div>
+                <p className="text-[#f0f2e6] text-[11px] font-bold leading-tight">Farm to Table</p>
+                <p className="text-[#f0f2e6]/40 text-[9px] mt-1">Local organic produce</p>
+              </div>
+              <div className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/5 border border-white/5">
+                <div className="w-10 h-10 rounded-full bg-[#f2cc0d]/10 flex items-center justify-center mb-3">
+                  <span className="material-symbols-outlined text-[#f2cc0d] text-[20px]">workspace_premium</span>
+                </div>
+                <p className="text-[#f0f2e6] text-[11px] font-bold leading-tight">Award Winner</p>
+                <p className="text-[#f0f2e6]/40 text-[9px] mt-1">Best dining 2024</p>
+              </div>
+              <div className="flex flex-col items-center text-center p-4 rounded-2xl bg-white/5 border border-white/5">
+                <div className="w-10 h-10 rounded-full bg-[#f2cc0d]/10 flex items-center justify-center mb-3">
+                  <span className="material-symbols-outlined text-[#f2cc0d] text-[20px]">spa</span>
+                </div>
+                <p className="text-[#f0f2e6] text-[11px] font-bold leading-tight">Lush Ambiance</p>
+                <p className="text-[#f0f2e6]/40 text-[9px] mt-1">Tropical sanctuary</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Signature Dishes */}
+          <div className="mb-10 relative z-10">
+            <div className="flex justify-between items-center px-6 mb-5">
+              <h3 className="text-[#f0f2e6] text-lg font-bold">Chef's Signatures</h3>
+              <Link to="/menu" className="text-[#f2cc0d] text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                Full Menu <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </Link>
+            </div>
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide pl-6 pr-6 pb-4">
+              {/* Dish 1 */}
+              <div className="flex-shrink-0 w-56 bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+                <div className="w-full h-36 overflow-hidden">
+                  <img alt="Karimeen Pollichathu" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmVDQE_nXjnKlvda3qRwUtciJ1GfcXVzQ0rNKa1YJM-uO_JAH9Df_puAKFyA_1FPIOS2GwkvWKYU7ecdRR2q_vrfzPB_L5b6Bh-Z0av4J6WTXdaetDwLnxXbaWhjFYE1zRErgT_cfxTYalmA_Zmid6no08AuCbTTkUPmO73kqaCDOM5MomdlYXfh-j7JIkNcJYVG4xF5s26Jy8rrdqZb_JJFCvvhG9hE_Ws1PeO5OvvLQEMlV7OfCftWeSijVUJXRu9fsplw6bWVQ"/>
+                </div>
+                <div className="p-4">
+                  <h4 className="text-[#f0f2e6] font-bold text-sm">Karimeen Pollichathu</h4>
+                  <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">Pearl spot in banana leaf with traditional masala</p>
+                  <div className="flex justify-between items-center mt-3">
+                    <span className="text-[#f2cc0d] font-bold text-sm">₹1,250</span>
+                    <span className="material-symbols-outlined text-[#f2cc0d]/60 text-[18px]">add_circle</span>
+                  </div>
+                </div>
+              </div>
+              {/* Dish 2 */}
+              <div className="flex-shrink-0 w-56 bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+                <div className="w-full h-36 overflow-hidden">
+                  <img alt="Aleppey Prawn Curry" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ-ebGLiGO0MOb5sIzRdJk49k45jlyq8pKM11FskscTeEkB-h35UDkf-ZXeDXYCcEfslJ24duechMLpqo-PFoG24Q97yNg8_0z4iIxgymHH0-J-QOLzvZRM4EC9SnTLRkAqVz_jZWO_xMr41Op2etKUIiKJ6LJgIGhi-lBAcRty_Wys6Maj6jZrpLlv7XTgqOYmPIVmtyVlfxBbkvaYAj1F9VuDRJ4ZeU3teVmFO2QcSmmQV82aFTEs5Pwy0HGodBtebE-l7yOiMc"/>
+                </div>
+                <div className="p-4">
+                  <h4 className="text-[#f0f2e6] font-bold text-sm">Aleppey Prawn Curry</h4>
+                  <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">Succulent prawns in coconut & raw mango reduction</p>
+                  <div className="flex justify-between items-center mt-3">
+                    <span className="text-[#f2cc0d] font-bold text-sm">₹950</span>
+                    <span className="material-symbols-outlined text-[#f2cc0d]/60 text-[18px]">add_circle</span>
+                  </div>
+                </div>
+              </div>
+              {/* Dish 3 */}
+              <div className="flex-shrink-0 w-56 bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+                <div className="w-full h-36 overflow-hidden">
+                  <img alt="Nadan Beef Roast" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClcCMnAa4_jDLc0I8fnLgU9kHJqvIZ473prVcliWDu2Q2n9XQsiiIWGhYUmt4YuftZKHHDgjM7jShnd1hZIjHgMV1kLb2IpGFSMP_wT5y36Ik_JNJOIaEf7b4SC4ZOPqwnH0fO1wFwiWoEOM59MCaaQJaQdXfmi8E84pEoXH-53ejWpcjhdMb0zGkR4UYJuqBujpR-6KS7mdkmewvt-aJvYPILuCwOfDj2La82sME8tWeOm7vN6FHBr2kZcjC0yqJjOt2hqTPCEkk"/>
+                </div>
+                <div className="p-4">
+                  <h4 className="text-[#f0f2e6] font-bold text-sm">Nadan Beef Roast</h4>
+                  <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">Slow-fried with coconut slivers & Malabar spices</p>
+                  <div className="flex justify-between items-center mt-3">
+                    <span className="text-[#f2cc0d] font-bold text-sm">₹850</span>
+                    <span className="material-symbols-outlined text-[#f2cc0d]/60 text-[18px]">add_circle</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Today's Special */}
+          <div className="px-6 mb-10 relative z-10">
+            <h3 className="text-[#f2cc0d] text-xs font-bold uppercase tracking-[0.2em] mb-4">Today's Special</h3>
+            <div className="bg-[#102213] border border-[#f2cc0d]/10 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
               <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
                 <img alt="Meen Pollichathu" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv4Rlay-wAZluLz0yPV6VHut-xWWO-pJahuBdARWEw3XQ08k4Fdu5sqgDwRoqYGIbgfSB9-ax3RNCVXq4QSEGRC0fSYIAJ9cnKmR5jGbG2vtLYqcQ0YRVCuL1b4ArOue-Mrw5zKLHIvkiDjPCBV5Ae6CBtbSznJgRa-AWmQtjajhgYExbJIaZWNvLZKKlimw9G1V3ZQLPcZRpdm2mDGGFcRj46svgLVGwmafxC9GpJuc_F6ZyeeRKNIS3q6mJw694nG0qZFXkZiaI"/>
               </div>
               <div className="flex-1">
                 <div className="flex justify-between items-start">
                   <h4 className="text-[#f0f2e6] font-bold text-lg">Meen Pollichathu</h4>
-                  <span className="text-[#f2cc0d] font-bold text-sm">$18</span>
+                  <span className="text-[#f2cc0d] font-bold text-sm">₹540</span>
                 </div>
                 <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">Pearl spot fish marinated in spicy masala and grilled in banana leaf.</p>
                 <button className="mt-3 text-[#f2cc0d] text-xs font-bold uppercase tracking-wider flex items-center gap-1">
@@ -265,6 +348,110 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* Customer Testimonial */}
+          <div className="px-6 mb-10 relative z-10">
+            <div className="bg-gradient-to-br from-[#f2cc0d]/5 to-transparent border border-[#f2cc0d]/10 rounded-2xl p-6 relative overflow-hidden">
+              <div className="absolute top-3 right-4 text-[#f2cc0d]/10 text-6xl font-serif leading-none">"</div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-[#f2cc0d]/20 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[#f2cc0d] text-[18px]">format_quote</span>
+                </div>
+                <div>
+                  <p className="text-[#f0f2e6] text-sm font-bold">Priya Menon</p>
+                  <div className="flex gap-0.5 mt-0.5">
+                    <span className="material-symbols-outlined text-[#f2cc0d] text-[12px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
+                    <span className="material-symbols-outlined text-[#f2cc0d] text-[12px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
+                    <span className="material-symbols-outlined text-[#f2cc0d] text-[12px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
+                    <span className="material-symbols-outlined text-[#f2cc0d] text-[12px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
+                    <span className="material-symbols-outlined text-[#f2cc0d] text-[12px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-[#f0f2e6]/80 text-sm leading-relaxed italic">
+                "An absolutely mesmerizing experience. The flavors transported me straight to the backwaters of Kerala. The Karimeen was perfection on a plate!"
+              </p>
+            </div>
+          </div>
+
+          {/* Ambiance Gallery */}
+          <div className="mb-10 relative z-10">
+            <div className="flex justify-between items-center px-6 mb-5">
+              <h3 className="text-[#f0f2e6] text-lg font-bold">Our Ambiance</h3>
+              <Link to="/gallery" className="text-[#f2cc0d] text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                Gallery <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </Link>
+            </div>
+            <div className="px-6 grid grid-cols-2 gap-3">
+              <div className="aspect-[3/4] rounded-xl overflow-hidden relative">
+                <img alt="Interior dining" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZWLWcnGspF8BIckfaPzJ_iV2QZJFvDyFy16G4JhveAWvL1pZMkalswmIhSnH7H24JD7wpcapbPiP9GhMK11EGmqpYqeAvKRnQ757NvZ60LXWD2AO-rmZ2_dMN6tO7QTnh835_yof6cKAHj_fh1KtePxM_VdTg-hryHFHybGKae_zSDRfoBLH9p001kWT_Hs1Ij6I8H_T9LaIPIG05pFVsIw72ySxluoVHb5D_Az7Aor5MuEthFwTieNc8lh1XXZlxs_soXvR6iUk"/>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <span className="absolute bottom-3 left-3 text-white text-xs font-bold uppercase tracking-wider">The Veranda</span>
+              </div>
+              <div className="flex flex-col gap-3">
+                <div className="aspect-square rounded-xl overflow-hidden relative">
+                  <img alt="Outdoor seating" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcct9nb9Nss5mmsivaWSFib_CqIxCbflUamDAosJPM8jJFr8q4W9tsjCpsdGxpQ2hB3_DPKhLF8FEheJFa_npFAK-EsWMMzGf_1M3Asiq_M1iXqDU0dpkrn2YzqQk2loCXDlDI1L5fD10sC61epddh--Na-TCqCuhnOwZJnIH_obuJoOhi-TT2igXaMZO_2rpRVeVVvfnY85YSZXuYdUaz3I2PNnccHrnfUoC06FlL-wf-nop9kraxde3JMzowzL4z6vnEPE17blU"/>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <span className="absolute bottom-2 left-2 text-white text-[10px] font-bold uppercase tracking-wider">Garden</span>
+                </div>
+                <div className="aspect-square rounded-xl overflow-hidden relative">
+                  <img alt="Food presentation" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6o8MiTT1zXZoJ6RqgU9tmDIrUwgl3PBJkmRXoZdNqPAopq5sK6blOyi9jaZvhfBUfZGT_NJd8J6VYHW02C6TIiPqH-4pw4rU74G1CCg1fdip-z4_oLNEaT8HL_4BZAcNLZ5tZyakTfnU9dmf7f4G3Qzqe6DUCGkBAAe5TdK3vTrowVBuhVUDEQTZgmuuUraege4THuI0oEvhmgQOC7XfyhJdR7_mUyXcZ69Yk3BOooWxNsP1KwKeOYJYImFTL4mNcIqqUutiQhyA"/>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <span className="absolute bottom-2 left-2 text-white text-[10px] font-bold uppercase tracking-wider">Plating</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Location & Hours */}
+          <div className="px-6 mb-10 relative z-10">
+            <div className="bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+              <div className="w-full h-40 relative overflow-hidden">
+                <img 
+                  alt="Fort Kochi location" 
+                  className="w-full h-full object-cover opacity-70" 
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9EkbwhrW6U5JixUDOdDWL4wvOBDKAji0KX34y6kiVL7Tda5RFQ04yloIG4SoPREHrQdV4PJIqz_fPyKORZLyrotRm6_3iqAM6quCuucJlfa2q6uCnzMYuL5RAGz1oJ-QI128ERnWRcNpRpbaF2bHgcgcyuOUlU6_2vdYj0LSVsuoCwZLMjtTDfrbniQCf3GtrmaYmUq6iRXH6LE8vhha3wJZpN_jrR3PRpiE9cSFwp3j0X7mZ9Z_ZpZQYbSN7sT_ZBnUudlULCpo"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#102213] to-transparent"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <span className="material-symbols-outlined text-[#f2cc0d] text-4xl animate-bounce">location_on</span>
+                </div>
+              </div>
+              <div className="p-5 space-y-4">
+                <div>
+                  <h4 className="text-[#f0f2e6] font-bold text-base">Fort Kochi, Kerala</h4>
+                  <p className="text-[#f0f2e6]/50 text-xs mt-1">123 Coastal Road, Heritage Block, Cochin 682001</p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[#f2cc0d] text-[16px]">schedule</span>
+                    <div>
+                      <p className="text-[#f0f2e6]/80 text-[11px]">Lunch: 12:00 - 15:30</p>
+                      <p className="text-[#f0f2e6]/80 text-[11px]">Dinner: 19:00 - 23:00</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <a href="tel:+914842304500" className="flex-1 bg-white/5 border border-white/10 rounded-xl py-3 flex items-center justify-center gap-2 text-[#f0f2e6] text-xs font-bold">
+                    <span className="material-symbols-outlined text-[16px]">call</span>
+                    Call Us
+                  </a>
+                  <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" className="flex-1 bg-[#25D366]/10 border border-[#25D366]/20 rounded-xl py-3 flex items-center justify-center gap-2 text-[#25D366] text-xs font-bold">
+                    <span className="material-symbols-outlined text-[16px]">chat</span>
+                    WhatsApp
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Quote */}
+          <div className="px-8 pb-6 text-center relative z-10">
+            <div className="w-8 h-[1px] bg-[#f2cc0d]/30 mx-auto mb-4"></div>
+            <p className="text-[#f2cc0d]/60 text-xs italic font-serif">Where the backwaters meet the plate.</p>
+            <p className="text-[#f0f2e6]/30 text-[10px] mt-3 uppercase tracking-widest">© 2024 Ila Kochi</p>
+          </div>
+
         </main>
 
         <MobileBottomNav activeTab="home" />
