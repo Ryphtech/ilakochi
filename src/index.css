@@ -31,7 +31,7 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-auto-rows: 10px;
 }
-.masonry-item-short { grid-row-end: span 26; }
+.masonry-item-short { grid-row-end: span 26;}
 .masonry-item-tall { grid-row-end: span 45; }
 .masonry-item-medium { grid-row-end: span 35; }
 
