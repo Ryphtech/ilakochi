@@ -54,9 +54,9 @@ export default function MobileBottomNav({ activeTab }) {
         >
           {activeTab === 'contact' && <div className="absolute -top-2 w-8 h-1 bg-[#11d432] rounded-b-full shadow-[0_0_10px_rgba(17,212,50,0.5)]"></div>}
           <div className={`flex h-8 items-center justify-center ${activeTab !== 'contact' ? 'group-hover:-translate-y-1 transition-transform duration-300' : ''}`}>
-            <span className={`material-symbols-outlined text-[24px] ${activeTab === 'contact' ? 'font-variation-settings-fill' : ''}`}>event_seat</span>
+            <span className={`material-symbols-outlined text-[24px] ${activeTab === 'contact' ? 'font-variation-settings-fill' : ''}`}>mail</span>
           </div>
-          <span className={`text-[10px] leading-normal tracking-wide uppercase ${activeTab === 'contact' ? 'font-bold' : 'font-medium'}`}>Reserve</span>
+          <span className={`text-[10px] leading-normal tracking-wide uppercase ${activeTab === 'contact' ? 'font-bold' : 'font-medium'}`}>Contact</span>
         </Link>
       </div>
       <div className="h-1 w-full"></div>

@@ -109,9 +109,6 @@ export default function Gallery() {
             Join us for an unforgettable culinary experience in the heart of Kochi. Our doors are open for dinner every night.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <Link to="/contact" className="bg-primary text-background-dark px-10 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-transform shadow-xl shadow-primary/20">
-            Reserve Now
-          </Link>
           <Link to="/menu" className="bg-transparent border-2 border-primary/50 text-primary px-10 py-4 rounded-xl font-bold text-lg hover:bg-primary/10 transition-colors">
             View Full Menu
           </Link>

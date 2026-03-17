@@ -216,13 +216,6 @@ export default function Home() {
               </p>
             </div>
             
-            {/* Floating CTA */}
-            <div className="mt-8 z-10 w-full flex justify-center">
-              <Link to="/contact" className="group relative flex items-center justify-center gap-3 bg-[#f2cc0d] text-[#1a3c28] px-8 py-4 rounded-full font-bold tracking-wide shadow-lg w-full max-w-[280px]">
-                <span className="material-symbols-outlined text-[20px]">table_restaurant</span>
-                <span>Book a Table</span>
-              </Link>
-            </div>
           </div>
 
           {/* Featured Categories */}

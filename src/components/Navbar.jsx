@@ -42,10 +42,6 @@ export default function Navbar() {
             <Link className="text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors whitespace-nowrap" to="/gallery">Experience</Link>
             <Link className="text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors whitespace-nowrap" to="/contact">Contact</Link>
           </nav>
-          <button className="bg-primary text-background-dark px-3 sm:px-4 lg:px-6 py-2 md:py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest hover:scale-105 transition-transform shadow-lg shadow-primary/20 whitespace-nowrap">
-            <span className="hidden sm:inline">Book a Table</span>
-            <span className="sm:hidden">Book</span>
-          </button>
         </div>
       </div>
 

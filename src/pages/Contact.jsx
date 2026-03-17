@@ -4,15 +4,15 @@ import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import MobileBottomNav from '../components/MobileBottomNav';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', date: '', guests: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Simulate form submission
-    alert(`Thank you ${formData.name}! Your reservation request for ${formData.date} has been received.`);
-    setFormData({ name: '', email: '', date: '', guests: '', message: '' });
+    alert(`Thank you ${formData.name}! Your message has been received.`);
+    setFormData({ name: '', email: '', message: '' });
   };
 
   return (
@@ -27,9 +27,9 @@ export default function Contact() {
         
         {/* Header */}
         <div className="text-center mb-16 space-y-4">
-          <h1 className="text-5xl md:text-6xl font-bold font-serif text-green-400">Reservations</h1>
+          <h1 className="text-5xl md:text-6xl font-bold font-serif text-green-400">Contact Us</h1>
           <p className="text-xl text-gray-300 font-light max-w-2xl mx-auto">
-            Secure a table for an unforgettable culinary journey, or reach out to us for any private dining inquiries.
+            Have questions or feedback? Reach out to us for general inquiries or private dining events.
           </p>
         </div>
 
@@ -37,7 +37,7 @@ export default function Contact() {
           
           {/* Reservation Form */}
           <div className="glass-card p-8 sm:p-10 rounded-[2rem] border border-[#213e31] shadow-2xl relative">
-            <h2 className="text-3xl font-serif text-white mb-8 border-b border-[#213e31] pb-4">Book Your Table</h2>
+            <h2 className="text-3xl font-serif text-white mb-8 border-b border-[#213e31] pb-4">Send a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
@@ -66,37 +66,6 @@ export default function Contact() {
                     placeholder="john@example.com"
                   />
                 </div>
-                <div>
-                  <label htmlFor="date" className="block text-sm font-medium text-gray-400 mb-2">Date & Time</label>
-                  <input
-                    type="datetime-local"
-                    id="date"
-                    name="date"
-                    required
-                    value={formData.date}
-                    onChange={handleChange}
-                    className="w-full bg-[#0a130f] border border-[#213e31] rounded-xl px-4 py-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all font-light min-w-0"
-                    style={{ colorScheme: 'dark' }}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="guests" className="block text-sm font-medium text-gray-400 mb-2">Number of Guests</label>
-                  <select
-                    id="guests"
-                    name="guests"
-                    required
-                    value={formData.guests}
-                    onChange={handleChange}
-                    className="w-full bg-[#0a130f] border border-[#213e31] rounded-xl px-4 py-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all font-light appearance-none"
-                  >
-                    <option value="" disabled>Select...</option>
-                    <option value="1">1 Person</option>
-                    <option value="2">2 People</option>
-                    <option value="3">3 People</option>
-                    <option value="4">4 People</option>
-                    <option value="5+">5+ People (Contact us)</option>
-                  </select>
-                </div>
               </div>
 
               <div>
@@ -116,7 +85,7 @@ export default function Contact() {
                 type="submit"
                 className="w-full bg-green-600 hover:bg-green-500 text-white font-medium py-4 px-6 rounded-xl transition-all shadow-[0_0_15px_rgba(74,222,128,0.2)] flex items-center justify-center gap-2 group"
               >
-                <span>Request Reservation</span>
+                <span>Send Message</span>
                 <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </form>
@@ -180,7 +149,7 @@ export default function Contact() {
                 className="w-full py-4 rounded-xl border-2 border-[#25D366] text-white flex items-center justify-center gap-3 hover:bg-[#25D366] transition-colors font-medium text-lg"
               >
                 <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                Book instantly via WhatsApp
+                Message instantly via WhatsApp
               </a>
             </div>
 
@@ -243,8 +212,8 @@ export default function Contact() {
         {/* Contact Form Card */}
         <div className="bg-white/[0.03] backdrop-blur-[10px] border border-white/[0.05] shadow-[0_4px_30px_rgba(0,0,0,0.1)] rounded-2xl p-6 space-y-6">
           <div className="flex items-center gap-3 mb-2">
-            <span className="material-symbols-outlined text-[#d4af37]">restaurant</span>
-            <h3 className="text-[#fefce8] text-lg font-semibold">Table Reservation</h3>
+            <span className="material-symbols-outlined text-[#d4af37]">mail</span>
+            <h3 className="text-[#fefce8] text-lg font-semibold">Send a Message</h3>
           </div>
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="space-y-1">
@@ -261,55 +230,27 @@ export default function Contact() {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-[#fefce8]/60 uppercase tracking-wider pl-1">Date</label>
-                <div className="relative flex items-center">
-                  <span className="material-symbols-outlined absolute left-0 text-[#fefce8]/40 text-[20px]">calendar_today</span>
-                  <input 
-                    className="w-full bg-transparent border-0 border-b border-white/20 text-[#fefce8] placeholder-[#fefce8]/30 focus:border-[#d4af37] focus:ring-0 pl-8 py-2 transition-colors text-sm" 
-                    placeholder="Select Date" 
-                    type="text"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-[#fefce8]/60 uppercase tracking-wider pl-1">Guests</label>
-                <div className="relative flex items-center">
-                  <span className="material-symbols-outlined absolute left-0 text-[#fefce8]/40 text-[20px]">group</span>
-                  <input 
-                    className="w-full bg-transparent border-0 border-b border-white/20 text-[#fefce8] placeholder-[#fefce8]/30 focus:border-[#d4af37] focus:ring-0 pl-8 py-2 transition-colors text-sm" 
-                    placeholder="2 People" 
-                    type="number"
-                    name="guests"
-                    value={formData.guests}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-            </div>
+            
             <div className="space-y-1">
-              <label className="text-xs font-medium text-[#fefce8]/60 uppercase tracking-wider pl-1">Special Request</label>
+              <label className="text-xs font-medium text-[#fefce8]/60 uppercase tracking-wider pl-1">Message</label>
               <div className="relative flex items-start">
                 <span className="material-symbols-outlined absolute left-0 top-2 text-[#fefce8]/40 text-[20px]">edit_note</span>
                 <textarea 
                   className="w-full bg-transparent border-0 border-b border-white/20 text-[#fefce8] placeholder-[#fefce8]/30 focus:border-[#d4af37] focus:ring-0 pl-8 py-2 transition-colors text-sm resize-none" 
-                  placeholder="Allergies, special occasion..." 
-                  rows="2"
+                  placeholder="Type your message here..." 
+                  rows="3"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                 ></textarea>
               </div>
             </div>
+            
             <button 
               className="w-full bg-[#4ade80] text-[#0a1f10] font-bold py-3.5 rounded-xl mt-4 hover:bg-[#4ade80]/90 transition-colors shadow-lg shadow-[#4ade80]/20 flex items-center justify-center gap-2" 
               type="submit"
             >
-              Request Booking
+              Send Message
               <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
             </button>
           </form>
