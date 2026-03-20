@@ -5,7 +5,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="hidden md:block relative z-50 px-4 md:px-6 lg:px-20 py-4 border-b border-primary/10 backdrop-blur-sm bg-background-dark/80">
+    <header className="hidden md:block relative z-50 px-4 sm:px-6 lg:px-8 py-4 border-b border-primary/10 backdrop-blur-sm bg-background-dark/80">
       <div className="flex items-center justify-between max-w-7xl mx-auto w-full">
         {/* Left: Mobile Menu Toggle & Desktop Links */}
         <div className="flex-1 flex items-center justify-start gap-8">
@@ -40,6 +40,7 @@ export default function Navbar() {
         <div className="flex-1 flex items-center justify-end gap-2 sm:gap-4 lg:gap-8">
           <nav className="hidden lg:flex items-center gap-8">
             <Link className="text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors whitespace-nowrap" to="/gallery">Experience</Link>
+            <Link className="text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors whitespace-nowrap" to="/reviews">Reviews</Link>
             <Link className="text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors whitespace-nowrap" to="/contact">Contact</Link>
           </nav>
         </div>

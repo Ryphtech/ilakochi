@@ -14,8 +14,8 @@ export default function Home() {
       <div className="hidden md:flex flex-1 flex-col relative">
 
         {/* Hero Section */}
-        <main className="flex-grow flex flex-col items-center justify-center px-6 py-12 lg:py-20 relative">
-          <div className="max-w-6xl w-full grid lg:grid-cols-2 gap-12 items-center">
+        <main className="flex-grow flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 lg:py-20 relative">
+          <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
             {/* Hero Content */}
             <div className="order-2 lg:order-1 text-center lg:text-left space-y-8">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest">
@@ -69,7 +69,7 @@ export default function Home() {
         </main>
 
         {/* Features Section */}
-        <section className="py-20 px-6 bg-forest-accent/30">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-forest-accent/30">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8">
               {/* Feature 1 */}
@@ -101,7 +101,7 @@ export default function Home() {
         </section>
 
         {/* Signature Categories Grid */}
-        <section className="py-24 px-6 max-w-7xl mx-auto">
+        <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div className="space-y-4">
               <h2 className="text-4xl font-black">Our <span className="text-primary">Curations</span></h2>
@@ -196,7 +196,7 @@ export default function Home() {
           
           {/* Hero Section with Leaf Texture Background */}
           <div className="relative w-full flex flex-col items-center pt-8 pb-12 px-6">
-            <div className="absolute inset-0 z-0 opacity-10 bg-[url('https://placeholder.pics/svg/400')] bg-repeat bg-[length:200px]"></div>
+            <div className="absolute inset-0 z-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg+xmlns=%22http://www.w3.org/2000/svg%22+width=%2240%22+height=%2240%22%3E%3Crect+width=%2240%22+height=%2240%22+fill=%22none%22+stroke=%22white%22+stroke-width=%221%22/%3E%3C/svg%3E')] bg-repeat bg-[length:40px]"></div>
             
             {/* Logo Container */}
             <div className="relative z-10 mb-8 mt-4 group">
@@ -335,9 +335,6 @@ export default function Home() {
                   <span className="text-[#f2cc0d] font-bold text-sm">₹540</span>
                 </div>
                 <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">Pearl spot fish marinated in spicy masala and grilled in banana leaf.</p>
-                <button className="mt-3 text-[#f2cc0d] text-xs font-bold uppercase tracking-wider flex items-center gap-1">
-                    Add to Order <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </button>
               </div>
             </div>
           </div>

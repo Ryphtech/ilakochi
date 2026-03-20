@@ -23,8 +23,8 @@ export default function About() {
       </section>
 
       {/* Heritage Section */}
-      <section className="py-24 px-10 md:px-40 bg-background-dark">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-background-dark">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="flex flex-col gap-8">
             <span className="text-primary font-bold tracking-widest uppercase text-sm">Since 1924</span>
             <h2 className="text-4xl md:text-5xl font-black leading-tight text-cream">The Heritage of Ila</h2>
@@ -57,8 +57,8 @@ export default function About() {
       </section>
 
       {/* The Chef Section */}
-      <section className="py-24 bg-forest-accent/30">
-        <div className="max-w-[1200px] mx-auto px-10">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-forest-accent/30">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row gap-16 items-center bg-background-dark p-12 rounded-3xl border border-primary/10">
             <div className="w-full md:w-1/3 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
               <img 
@@ -97,15 +97,15 @@ export default function About() {
       </section>
 
       {/* Sustainability Section */}
-      <section className="py-24 px-10 md:px-40 bg-background-dark overflow-hidden relative">
-        <div className="max-w-[1200px] mx-auto text-center mb-16 relative z-10">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-background-dark overflow-hidden relative">
+        <div className="max-w-7xl mx-auto text-center mb-16 relative z-10">
           <h2 className="text-primary text-4xl md:text-5xl font-black mb-6">Sustainable Sourcing</h2>
           <p className="text-cream/70 max-w-3xl mx-auto text-lg">
               We believe that fine dining should nourish the Earth as much as it nourishes the soul. 90% of our ingredients are sourced within a 50-mile radius of the restaurant.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1200px] mx-auto relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto relative z-10">
           <div className="bg-forest-accent p-8 rounded-2xl border border-primary/5 hover:border-primary/30 transition-all">
             <span className="material-symbols-outlined text-primary text-4xl mb-4">tsunami</span>
             <h4 className="text-xl font-bold text-cream mb-3">Responsible Sea-Farming</h4>

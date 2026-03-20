@@ -86,7 +86,7 @@ export default function Menu() {
   return (
     <>
       {/* --- DESKTOP VIEW --- */}
-      <div className="hidden md:block flex-1 max-w-7xl mx-auto w-full px-6 py-12">
+      <div className="hidden md:block flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero Section */}
       <section className="mb-16 relative rounded-xl overflow-hidden min-h-[400px] flex flex-col justify-end p-12 group">
         <div 
@@ -227,10 +227,6 @@ export default function Menu() {
                     </div>
                     <div className="flex items-center justify-between pt-2 border-t border-white/10">
                       <span className="text-lg font-bold text-[#2bee4b]">₹{menuItems[0].price.toLocaleString()}</span>
-                      <button className="flex items-center gap-2 rounded-lg bg-[#f3f0e6] px-4 py-2 text-xs font-bold uppercase tracking-wide text-[#102213] shadow-sm hover:bg-white transition-colors">
-                        Add to Order
-                        <span className="material-symbols-outlined text-[16px]">add</span>
-                      </button>
                     </div>
                   </div>
                 </section>

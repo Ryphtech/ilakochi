@@ -133,8 +133,8 @@ export default function Contact() {
                  <div className="flex items-start gap-3">
                    <MapPin className="text-green-400 mt-1 shrink-0" size={24} />
                    <div>
-                     <h3 className="font-serif text-white text-2xl mb-2">Fort Kochi Location</h3>
-                     <p className="text-gray-300 font-light">123 Coastal Road, Heritage Block<br/>Cochin, Kerala 682001, India</p>
+                     <h3 className="font-serif text-white text-2xl mb-2">Location</h3>
+                     <p className="text-gray-300 font-light">Ernakulam</p>
                    </div>
                  </div>
                </div>
@@ -200,7 +200,7 @@ export default function Contact() {
           </div>
           <div className="absolute bottom-3 left-4 right-4 z-20 flex justify-between items-end">
             <div>
-              <p className="text-[#fefce8] font-semibold text-sm">Fort Kochi, Kerala</p>
+              <p className="text-[#fefce8] font-semibold text-sm">Location: Ernakulam</p>
               <p className="text-[#d4af37] text-xs">Open 11:00 AM - 11:00 PM</p>
             </div>
             <button className="bg-[#4ade80]/20 hover:bg-[#4ade80]/30 text-[#4ade80] border border-[#4ade80]/30 backdrop-blur-sm rounded-full p-2 flex items-center justify-center transition-all">

@@ -41,9 +41,9 @@ export default function Gallery() {
   return (
     <>
       {/* --- DESKTOP VIEW --- */}
-      <div className="hidden md:flex flex-1 flex-col items-center px-6 lg:px-40 py-12 w-full">
+      <div className="hidden md:flex flex-1 flex-col items-center px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto w-full">
       {/* Hero */}
-      <div className="w-full max-w-[1200px] mb-12 flex flex-col items-center text-center">
+      <div className="w-full mb-12 flex flex-col items-center text-center">
         <span className="text-primary font-semibold tracking-[0.2em] uppercase text-xs mb-4">Curated Moments</span>
         <h1 className="text-slate-900 dark:text-slate-100 text-5xl md:text-6xl font-black leading-tight tracking-tighter mb-6">Gallery</h1>
         <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl">
@@ -70,13 +70,13 @@ export default function Gallery() {
 
       {/* Masonry Grid */}
       {loading ? (
-        <div className="masonry-grid w-full max-w-[1200px] gap-6">
+        <div className="masonry-grid w-full max-w-7xl gap-6">
           {[1,2,3,4,5,6].map(i => (
             <div key={i} className={`${sizeClasses[i % sizeClasses.length]} bg-white/5 animate-pulse rounded-xl`}></div>
           ))}
         </div>
       ) : (
-        <div className="masonry-grid w-full max-w-[1200px] gap-6">
+        <div className="masonry-grid w-full max-w-7xl gap-6">
           {filteredImages.map((img, index) => (
             <div
               key={img.id}
@@ -103,7 +103,7 @@ export default function Gallery() {
       )}
 
       {/* CTA */}
-      <div className="w-full max-w-[1200px] mt-24 mb-16 px-8 py-20 rounded-3xl bg-primary/10 border border-primary/20 flex flex-col items-center text-center">
+      <div className="w-full max-w-7xl mt-24 mb-16 px-8 py-20 rounded-3xl bg-primary/10 border border-primary/20 flex flex-col items-center text-center">
         <h2 className="text-slate-900 dark:text-slate-100 text-4xl font-black mb-4">Experience it yourself</h2>
         <p className="text-slate-600 dark:text-slate-400 text-lg mb-10 max-w-xl">
             Join us for an unforgettable culinary experience in the heart of Kochi. Our doors are open for dinner every night.
