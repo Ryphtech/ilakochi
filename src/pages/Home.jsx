@@ -1,9 +1,47 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import MobileBottomNav from '../components/MobileBottomNav';
 
+import { supabase } from '../lib/supabase';
+
 export default function Home() {
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [signatureDishes, setSignatureDishes] = useState([]);
+  const [todaysSpecial, setTodaysSpecial] = useState(null);
+  const [ambienceImages, setAmbienceImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const [menuRes, galleryRes] = await Promise.all([
+        supabase
+          .from('menu_items')
+          .select('*')
+          .eq('is_available', true)
+          .order('display_order', { ascending: true })
+          .limit(4),
+        supabase
+          .from('gallery_images')
+          .select('*')
+          .eq('category', 'ambience')
+          .order('display_order', { ascending: true })
+          .limit(3)
+      ]);
+
+      if (!cancelled) {
+        const items = menuRes.data || [];
+        setSignatureDishes(items.slice(0, 3));
+        setTodaysSpecial(items.length > 3 ? items[3] : items[0] || null);
+        setAmbienceImages(galleryRes.data || []);
+        setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   return (
     <>
@@ -165,18 +203,40 @@ export default function Home() {
       <div className="flex md:hidden relative flex-1 flex-col overflow-hidden w-full bg-[#102213] text-[#f0f2e6]">
         {/* Header */}
         <header className="flex items-center justify-between px-6 py-5 z-50 sticky top-0 bg-[#102213]/95 backdrop-blur-sm border-b border-white/5">
+          {isSearchOpen ? (
+            <form 
+              onSubmit={(e) => { e.preventDefault(); navigate(`/menu?search=${encodeURIComponent(searchQuery)}`); }}
+              className="flex-1 flex items-center bg-white/10 rounded-full px-4 py-2 mr-3 border border-[#f2cc0d]/30"
+            >
+              <span className="material-symbols-outlined text-[#f0f2e6]/60 text-[20px]">search</span>
+              <input 
+                type="text" 
+                autoFocus
+                placeholder="Search dishes..." 
+                className="bg-transparent border-none text-[#f0f2e6] placeholder:text-[#f0f2e6]/50 focus:ring-0 ml-2 w-full text-base py-0"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </form>
+          ) : (
+            <>
+              <button 
+                className="text-[#f0f2e6]/80 hover:text-[#f2cc0d] transition-colors p-2 -ml-2"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                <span className="material-symbols-outlined text-[28px]">{isMobileMenuOpen ? 'close' : 'menu'}</span>
+              </button>
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-[#f2cc0d] text-[24px]">eco</span>
+                <h1 className="text-[#f0f2e6] text-xl font-bold tracking-wide font-serif">ILA KOCHI</h1>
+              </div>
+            </>
+          )}
           <button 
-            className="text-[#f0f2e6]/80 hover:text-[#f2cc0d] transition-colors p-2 -ml-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            className="text-[#f0f2e6]/80 hover:text-[#f2cc0d] transition-colors"
           >
-            <span className="material-symbols-outlined text-[28px]">{isMobileMenuOpen ? 'close' : 'menu'}</span>
-          </button>
-          <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-[#f2cc0d] text-[24px]">eco</span>
-            <h1 className="text-[#f0f2e6] text-xl font-bold tracking-wide font-serif">ILA KOCHI</h1>
-          </div>
-          <button className="text-[#f0f2e6]/80 hover:text-[#f2cc0d] transition-colors">
-            <span className="material-symbols-outlined text-[28px]">search</span>
+            <span className="material-symbols-outlined text-[28px]">{isSearchOpen ? 'close' : 'search'}</span>
           </button>
         </header>
 
@@ -277,66 +337,59 @@ export default function Home() {
               </Link>
             </div>
             <div className="flex gap-4 overflow-x-auto scrollbar-hide pl-6 pr-6 pb-4">
-              {/* Dish 1 */}
-              <div className="flex-shrink-0 w-56 bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
-                <div className="w-full h-36 overflow-hidden">
-                  <img alt="Karimeen Pollichathu" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmVDQE_nXjnKlvda3qRwUtciJ1GfcXVzQ0rNKa1YJM-uO_JAH9Df_puAKFyA_1FPIOS2GwkvWKYU7ecdRR2q_vrfzPB_L5b6Bh-Z0av4J6WTXdaetDwLnxXbaWhjFYE1zRErgT_cfxTYalmA_Zmid6no08AuCbTTkUPmO73kqaCDOM5MomdlYXfh-j7JIkNcJYVG4xF5s26Jy8rrdqZb_JJFCvvhG9hE_Ws1PeO5OvvLQEMlV7OfCftWeSijVUJXRu9fsplw6bWVQ"/>
-                </div>
-                <div className="p-4">
-                  <h4 className="text-[#f0f2e6] font-bold text-sm">Karimeen Pollichathu</h4>
-                  <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">Pearl spot in banana leaf with traditional masala</p>
-                  <div className="flex justify-between items-center mt-3">
-                    <span className="text-[#f2cc0d] font-bold text-sm">₹1,250</span>
-                    <span className="material-symbols-outlined text-[#f2cc0d]/60 text-[18px]">add_circle</span>
+              {loading ? (
+                [1, 2, 3].map(i => (
+                  <div key={i} className="flex-shrink-0 w-56 bg-white/5 border border-white/5 rounded-2xl overflow-hidden animate-pulse">
+                    <div className="w-full h-36 bg-white/10"></div>
+                    <div className="p-4 space-y-2">
+                      <div className="h-4 bg-white/10 rounded w-3/4"></div>
+                      <div className="h-3 bg-white/5 rounded w-full"></div>
+                      <div className="h-4 bg-white/10 rounded w-1/4 mt-4"></div>
+                    </div>
+                  </div>
+                ))
+              ) : signatureDishes.map(dish => (
+                <div key={dish.id} className="flex-shrink-0 w-56 bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+                  <div className="w-full h-36 overflow-hidden">
+                    <img alt={dish.name} className="w-full h-full object-cover" src={dish.image_url} />
+                  </div>
+                  <div className="p-4">
+                    <h4 className="text-[#f0f2e6] font-bold text-sm">{dish.name}</h4>
+                    <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">{dish.description}</p>
+                    <div className="flex justify-between items-center mt-3">
+                      <span className="text-[#f2cc0d] font-bold text-sm">₹{dish.price.toLocaleString()}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              {/* Dish 2 */}
-              <div className="flex-shrink-0 w-56 bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
-                <div className="w-full h-36 overflow-hidden">
-                  <img alt="Aleppey Prawn Curry" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ-ebGLiGO0MOb5sIzRdJk49k45jlyq8pKM11FskscTeEkB-h35UDkf-ZXeDXYCcEfslJ24duechMLpqo-PFoG24Q97yNg8_0z4iIxgymHH0-J-QOLzvZRM4EC9SnTLRkAqVz_jZWO_xMr41Op2etKUIiKJ6LJgIGhi-lBAcRty_Wys6Maj6jZrpLlv7XTgqOYmPIVmtyVlfxBbkvaYAj1F9VuDRJ4ZeU3teVmFO2QcSmmQV82aFTEs5Pwy0HGodBtebE-l7yOiMc"/>
-                </div>
-                <div className="p-4">
-                  <h4 className="text-[#f0f2e6] font-bold text-sm">Aleppey Prawn Curry</h4>
-                  <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">Succulent prawns in coconut & raw mango reduction</p>
-                  <div className="flex justify-between items-center mt-3">
-                    <span className="text-[#f2cc0d] font-bold text-sm">₹950</span>
-                    <span className="material-symbols-outlined text-[#f2cc0d]/60 text-[18px]">add_circle</span>
-                  </div>
-                </div>
-              </div>
-              {/* Dish 3 */}
-              <div className="flex-shrink-0 w-56 bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
-                <div className="w-full h-36 overflow-hidden">
-                  <img alt="Nadan Beef Roast" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClcCMnAa4_jDLc0I8fnLgU9kHJqvIZ473prVcliWDu2Q2n9XQsiiIWGhYUmt4YuftZKHHDgjM7jShnd1hZIjHgMV1kLb2IpGFSMP_wT5y36Ik_JNJOIaEf7b4SC4ZOPqwnH0fO1wFwiWoEOM59MCaaQJaQdXfmi8E84pEoXH-53ejWpcjhdMb0zGkR4UYJuqBujpR-6KS7mdkmewvt-aJvYPILuCwOfDj2La82sME8tWeOm7vN6FHBr2kZcjC0yqJjOt2hqTPCEkk"/>
-                </div>
-                <div className="p-4">
-                  <h4 className="text-[#f0f2e6] font-bold text-sm">Nadan Beef Roast</h4>
-                  <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">Slow-fried with coconut slivers & Malabar spices</p>
-                  <div className="flex justify-between items-center mt-3">
-                    <span className="text-[#f2cc0d] font-bold text-sm">₹850</span>
-                    <span className="material-symbols-outlined text-[#f2cc0d]/60 text-[18px]">add_circle</span>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
           {/* Today's Special */}
           <div className="px-6 mb-10 relative z-10">
             <h3 className="text-[#f2cc0d] text-xs font-bold uppercase tracking-[0.2em] mb-4">Today's Special</h3>
-            <div className="bg-[#102213] border border-[#f2cc0d]/10 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
-              <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
-                <img alt="Meen Pollichathu" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv4Rlay-wAZluLz0yPV6VHut-xWWO-pJahuBdARWEw3XQ08k4Fdu5sqgDwRoqYGIbgfSB9-ax3RNCVXq4QSEGRC0fSYIAJ9cnKmR5jGbG2vtLYqcQ0YRVCuL1b4ArOue-Mrw5zKLHIvkiDjPCBV5Ae6CBtbSznJgRa-AWmQtjajhgYExbJIaZWNvLZKKlimw9G1V3ZQLPcZRpdm2mDGGFcRj46svgLVGwmafxC9GpJuc_F6ZyeeRKNIS3q6mJw694nG0qZFXkZiaI"/>
-              </div>
-              <div className="flex-1">
-                <div className="flex justify-between items-start">
-                  <h4 className="text-[#f0f2e6] font-bold text-lg">Meen Pollichathu</h4>
-                  <span className="text-[#f2cc0d] font-bold text-sm">₹540</span>
+            {loading ? (
+              <div className="bg-[#102213] border border-[#f2cc0d]/10 rounded-2xl p-5 flex items-center gap-4 shadow-lg animate-pulse">
+                <div className="w-20 h-20 bg-white/10 rounded-xl flex-shrink-0"></div>
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 bg-white/10 rounded w-1/2"></div>
+                  <div className="h-3 bg-white/5 rounded w-full"></div>
                 </div>
-                <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">Pearl spot fish marinated in spicy masala and grilled in banana leaf.</p>
               </div>
-            </div>
+            ) : todaysSpecial ? (
+              <div className="bg-[#102213] border border-[#f2cc0d]/10 rounded-2xl p-5 flex items-center gap-4 shadow-lg">
+                <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                  <img alt={todaysSpecial.name} className="w-full h-full object-cover" src={todaysSpecial.image_url}/>
+                </div>
+                <div className="flex-1">
+                  <div className="flex justify-between items-start">
+                    <h4 className="text-[#f0f2e6] font-bold text-lg">{todaysSpecial.name}</h4>
+                    <span className="text-[#f2cc0d] font-bold text-sm">₹{todaysSpecial.price.toLocaleString()}</span>
+                  </div>
+                  <p className="text-[#f0f2e6]/50 text-xs mt-1 line-clamp-2">{todaysSpecial.description}</p>
+                </div>
+              </div>
+            ) : null}
           </div>
 
           {/* Customer Testimonial */}
@@ -373,23 +426,35 @@ export default function Home() {
               </Link>
             </div>
             <div className="px-6 grid grid-cols-2 gap-3">
-              <div className="aspect-[3/4] rounded-xl overflow-hidden relative">
-                <img alt="Interior dining" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZWLWcnGspF8BIckfaPzJ_iV2QZJFvDyFy16G4JhveAWvL1pZMkalswmIhSnH7H24JD7wpcapbPiP9GhMK11EGmqpYqeAvKRnQ757NvZ60LXWD2AO-rmZ2_dMN6tO7QTnh835_yof6cKAHj_fh1KtePxM_VdTg-hryHFHybGKae_zSDRfoBLH9p001kWT_Hs1Ij6I8H_T9LaIPIG05pFVsIw72ySxluoVHb5D_Az7Aor5MuEthFwTieNc8lh1XXZlxs_soXvR6iUk"/>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <span className="absolute bottom-3 left-3 text-white text-xs font-bold uppercase tracking-wider">The Veranda</span>
-              </div>
-              <div className="flex flex-col gap-3">
-                <div className="aspect-square rounded-xl overflow-hidden relative">
-                  <img alt="Outdoor seating" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcct9nb9Nss5mmsivaWSFib_CqIxCbflUamDAosJPM8jJFr8q4W9tsjCpsdGxpQ2hB3_DPKhLF8FEheJFa_npFAK-EsWMMzGf_1M3Asiq_M1iXqDU0dpkrn2YzqQk2loCXDlDI1L5fD10sC61epddh--Na-TCqCuhnOwZJnIH_obuJoOhi-TT2igXaMZO_2rpRVeVVvfnY85YSZXuYdUaz3I2PNnccHrnfUoC06FlL-wf-nop9kraxde3JMzowzL4z6vnEPE17blU"/>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <span className="absolute bottom-2 left-2 text-white text-[10px] font-bold uppercase tracking-wider">Garden</span>
-                </div>
-                <div className="aspect-square rounded-xl overflow-hidden relative">
-                  <img alt="Food presentation" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6o8MiTT1zXZoJ6RqgU9tmDIrUwgl3PBJkmRXoZdNqPAopq5sK6blOyi9jaZvhfBUfZGT_NJd8J6VYHW02C6TIiPqH-4pw4rU74G1CCg1fdip-z4_oLNEaT8HL_4BZAcNLZ5tZyakTfnU9dmf7f4G3Qzqe6DUCGkBAAe5TdK3vTrowVBuhVUDEQTZgmuuUraege4THuI0oEvhmgQOC7XfyhJdR7_mUyXcZ69Yk3BOooWxNsP1KwKeOYJYImFTL4mNcIqqUutiQhyA"/>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <span className="absolute bottom-2 left-2 text-white text-[10px] font-bold uppercase tracking-wider">Plating</span>
-                </div>
-              </div>
+              {loading ? (
+                <>
+                  <div className="aspect-[3/4] rounded-xl bg-white/10 animate-pulse"></div>
+                  <div className="flex flex-col gap-3">
+                    <div className="aspect-square rounded-xl bg-white/10 animate-pulse"></div>
+                    <div className="aspect-square rounded-xl bg-white/10 animate-pulse"></div>
+                  </div>
+                </>
+              ) : ambienceImages.length >= 3 ? (
+                <>
+                  <div className="aspect-[3/4] rounded-xl overflow-hidden relative">
+                    <img alt={ambienceImages[0].title} className="w-full h-full object-cover" src={ambienceImages[0].image_url}/>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <span className="absolute bottom-3 left-3 text-white text-xs font-bold uppercase tracking-wider">{ambienceImages[0].title}</span>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <div className="aspect-square rounded-xl overflow-hidden relative">
+                      <img alt={ambienceImages[1].title} className="w-full h-full object-cover" src={ambienceImages[1].image_url}/>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <span className="absolute bottom-2 left-2 text-white text-[10px] font-bold uppercase tracking-wider">{ambienceImages[1].title}</span>
+                    </div>
+                    <div className="aspect-square rounded-xl overflow-hidden relative">
+                      <img alt={ambienceImages[2].title} className="w-full h-full object-cover" src={ambienceImages[2].image_url}/>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <span className="absolute bottom-2 left-2 text-white text-[10px] font-bold uppercase tracking-wider">{ambienceImages[2].title}</span>
+                    </div>
+                  </div>
+                </>
+              ) : null}
             </div>
           </div>
 

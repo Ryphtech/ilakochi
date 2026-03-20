@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import MobileBottomNav from '../components/MobileBottomNav';
 import { supabase } from '../lib/supabase';
 
@@ -52,9 +52,18 @@ const MobileMenuItem = ({ item }) => (
 );
 
 export default function Menu() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search') || '';
+  const [isSearchOpen, setIsSearchOpen] = useState(!!searchQuery);
+
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('all');
+
+  const handleSearchChange = (e) => {
+    const val = e.target.value;
+    setSearchParams(val ? { search: val } : {});
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -80,8 +89,12 @@ export default function Menu() {
     { key: 'desserts', label: 'Desserts' },
   ];
 
-  const filteredItems = activeFilter === 'all' ? menuItems : menuItems.filter(i => i.category === activeFilter);
-  const getByCategory = (cat) => menuItems.filter(i => i.category === cat);
+  const filteredItems = (activeFilter === 'all' ? menuItems : menuItems.filter(i => i.category === activeFilter))
+    .filter(i => i.name.toLowerCase().includes(searchQuery.toLowerCase()) || (i.description && i.description.toLowerCase().includes(searchQuery.toLowerCase())));
+
+  const getByCategory = (cat) => menuItems
+    .filter(i => i.category === cat)
+    .filter(i => i.name.toLowerCase().includes(searchQuery.toLowerCase()) || (i.description && i.description.toLowerCase().includes(searchQuery.toLowerCase())));
 
   return (
     <>
@@ -166,12 +179,36 @@ export default function Menu() {
         {/* Header */}
         <div className="sticky top-0 z-50 bg-[#102213]/95 backdrop-blur-sm border-b border-white/10 px-4 py-3">
           <div className="flex items-center justify-between">
-            <Link to="/" className="text-[#f3f0e6] p-2 -ml-2 rounded-full hover:bg-white/10 transition-colors">
-              <span className="material-symbols-outlined">arrow_back</span>
-            </Link>
-            <h2 className="text-[#f3f0e6] text-xl font-bold tracking-tight">Ila Kochi</h2>
-            <button className="text-[#f3f0e6] p-2 -mr-2 rounded-full hover:bg-white/10 transition-colors">
-              <span className="material-symbols-outlined">search</span>
+            {isSearchOpen ? (
+              <div className="flex-1 flex items-center bg-white/10 rounded-full px-4 py-2 mr-3 border border-white/20">
+                <span className="material-symbols-outlined text-[#f3f0e6]/60 text-[20px]">search</span>
+                <input 
+                  type="text" 
+                  autoFocus
+                  placeholder="Search menu..." 
+                  className="bg-transparent border-none text-[#f3f0e6] placeholder:text-[#f3f0e6]/50 focus:ring-0 ml-2 w-full text-base py-0"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
+              </div>
+            ) : (
+              <>
+                <Link to="/" className="text-[#f3f0e6] p-2 -ml-2 rounded-full hover:bg-white/10 transition-colors">
+                  <span className="material-symbols-outlined">arrow_back</span>
+                </Link>
+                <h2 className="text-[#f3f0e6] text-xl font-bold tracking-tight">Ila Kochi</h2>
+              </>
+            )}
+            <button 
+              onClick={() => {
+                setIsSearchOpen(!isSearchOpen);
+                if (isSearchOpen) {
+                  setSearchParams({});
+                }
+              }}
+              className="text-[#f3f0e6] p-2 -mr-2 rounded-full hover:bg-white/10 transition-colors"
+            >
+              <span className="material-symbols-outlined">{isSearchOpen ? 'close' : 'search'}</span>
             </button>
           </div>
           {/* Categories Scroll */}
