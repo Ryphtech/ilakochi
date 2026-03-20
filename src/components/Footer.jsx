@@ -65,7 +65,9 @@ export default function Footer() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-primary/10 text-center text-slate-500 text-xs">
-        © {new Date().getFullYear()} Ila Kochi Fine Dining. All rights reserved.
+        <Link to="/admin" className="hover:text-primary transition-colors">
+          © {new Date().getFullYear()} Ila Kochi Fine Dining. All rights reserved.
+        </Link>
       </div>
     </footer>
   );

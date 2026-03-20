@@ -284,6 +284,12 @@ export default function Contact() {
             <span className="text-[#fefce8] font-medium text-sm">Call Now</span>
           </a>
         </div>
+
+        {/* Mobile Default Footer */}
+        <div className="px-8 mt-12 pb-8 text-center">
+          <div className="w-8 h-[1px] bg-[#d4af37]/30 mx-auto mb-4"></div>
+          <Link to="/admin" className="block text-[#fefce8]/30 hover:text-white transition-colors text-[10px] uppercase tracking-widest">© 2024 Ila Kochi</Link>
+        </div>
       </main>
 
       <MobileBottomNav activeTab="contact" />

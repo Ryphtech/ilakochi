@@ -334,7 +334,8 @@ export default function About() {
 
           {/* Footer Quote */}
           <div className="px-8 pb-8 text-center bg-[#f6f8f6] dark:bg-[#102213]">
-            <p className="text-[#d4af37] font-['Noto_Serif',_serif] italic text-lg">"Where the backwaters meet the plate."</p>
+            <p className="text-[#d4af37] font-['Noto_Serif',_serif] italic text-lg mb-3">"Where the backwaters meet the plate."</p>
+            <Link to="/admin" className="block text-slate-500 hover:text-primary transition-colors text-[10px] uppercase tracking-widest">© 2024 Ila Kochi</Link>
           </div>
         </main>
         

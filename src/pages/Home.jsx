@@ -507,7 +507,7 @@ export default function Home() {
           <div className="px-8 pb-6 text-center relative z-10">
             <div className="w-8 h-[1px] bg-[#f2cc0d]/30 mx-auto mb-4"></div>
             <p className="text-[#f2cc0d]/60 text-xs italic font-serif">Where the backwaters meet the plate.</p>
-            <p className="text-[#f0f2e6]/30 text-[10px] mt-3 uppercase tracking-widest">© 2024 Ila Kochi</p>
+            <Link to="/admin" className="block mt-3 text-[#f0f2e6]/30 hover:text-white transition-colors text-[10px] uppercase tracking-widest">© 2024 Ila Kochi</Link>
           </div>
 
         </main>
