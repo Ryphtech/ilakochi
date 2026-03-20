@@ -173,9 +173,7 @@ export default function Contact() {
             <span className="material-symbols-outlined text-[28px]">arrow_back</span>
           </Link>
           <h2 className="text-[#fefce8] text-lg font-semibold tracking-wide">Contact Us</h2>
-          <button className="text-[#fefce8]/80 hover:text-[#4ade80] transition-colors p-1">
-            <span className="material-symbols-outlined text-[28px]">more_vert</span>
-          </button>
+          <div className="w-[36px]"></div>
         </div>
       </div>
 

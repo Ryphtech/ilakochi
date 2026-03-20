@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 // Pages
 import Home from './pages/Home';
@@ -14,6 +15,7 @@ import Admin from './pages/Admin';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="relative min-h-screen w-full flex flex-col overflow-x-hidden">
         {/* Subtle Leaf Texture Overlay */}
         <div className="absolute inset-0 tropical-overlay pointer-events-none"></div>

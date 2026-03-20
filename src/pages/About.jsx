@@ -188,9 +188,6 @@ export default function About() {
           </Link>
           <h2 className="text-slate-900 dark:text-[#f3f0e6] font-bold leading-tight flex-1 text-center uppercase tracking-widest text-sm">Our Story</h2>
           <div className="flex w-12 items-center justify-end">
-            <button className="flex size-12 cursor-pointer items-center justify-center rounded-full bg-transparent text-slate-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
-              <span className="material-symbols-outlined text-[24px]">share</span>
-            </button>
           </div>
         </div>
 

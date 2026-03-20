@@ -141,9 +141,6 @@ export default function Gallery() {
           </Link>
           <h2 className="text-slate-900 dark:text-[#f3f0e6] text-lg font-['Noto_Serif',_serif] font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Gallery Wall</h2>
           <div className="flex w-12 items-center justify-end">
-            <button className="flex cursor-pointer items-center justify-center rounded-lg h-12 bg-transparent text-slate-900 dark:text-[#f3f0e6]">
-              <span className="material-symbols-outlined text-2xl">share</span>
-            </button>
           </div>
         </div>
 
