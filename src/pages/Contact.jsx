@@ -126,24 +126,28 @@ export default function Contact() {
                </div>
             </div>
 
-            {/* Location Banner */}
-            <div className="relative rounded-[2rem] overflow-hidden border border-[#213e31] h-64 shadow-xl group">
+            <a 
+              href="https://maps.app.goo.gl/o4164NvYdcQKFqMz9?g_st=iw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative block rounded-[2rem] overflow-hidden border border-[#213e31] h-64 shadow-xl group cursor-pointer"
+            >
                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1000&auto=format&fit=crop" alt="Location Map background" className="absolute inset-0 w-full h-full object-cover filter brightness-[0.3] group-hover:scale-105 transition-transform duration-[2s]" />
                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
                  <div className="flex items-start gap-3">
                    <MapPin className="text-green-400 mt-1 shrink-0" size={24} />
                    <div>
                      <h3 className="font-serif text-white text-2xl mb-2">Location</h3>
-                     <p className="text-gray-300 font-light">Ernakulam</p>
+                     <p className="text-gray-300 font-light">ILA KOCHI RESTAURANT, Metro Piller No 350<br/>Pathadipalam, Near Kerala History Museum, kochi Ernamkulam 682024</p>
                    </div>
                  </div>
                </div>
-            </div>
+            </a>
 
             {/* WhatsApp CTA */}
             <div className="flex justify-center lg:justify-start pt-4">
               <a 
-                href="https://wa.me/1234567890" 
+                href="https://wa.me/919526267626" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full py-4 rounded-xl border-2 border-[#25D366] text-white flex items-center justify-center gap-3 hover:bg-[#25D366] transition-colors font-medium text-lg"
@@ -187,16 +191,17 @@ export default function Contact() {
 
         {/* Stylized Map */}
         <div className="w-full h-48 rounded-xl overflow-hidden relative shadow-lg border border-[#d4af37]/20 group">
-          <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-[#0a1f10]/80 to-transparent"></div>
-          <div className="w-full h-full bg-[#1a2f21] relative overflow-hidden">
-            <img 
-              alt="Stylized map view of Kochi, Kerala" 
-              className="w-full h-full object-cover opacity-60 mix-blend-overlay" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9EkbwhrW6U5JixUDOdDWL4wvOBDKAji0KX34y6kiVL7Tda5RFQ04yloIG4SoPREHrQdV4PJIqz_fPyKORZLyrotRm6_3iqAM6quCuucJlfa2q6uCnzMYuL5RAGz1oJ-QI128ERnWRcNpRpbaF2bHgcgcyuOUlU6_2vdYj0LSVsuoCwZLMjtTDfrbniQCf3GtrmaYmUq6iRXH6LE8vhha3wJZpN_jrR3PRpiE9cSFwp3j0X7mZ9Z_ZpZQYbSN7sT_ZBnUudlULCpo"
-            />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-              <span className="material-symbols-outlined text-[#d4af37] text-4xl drop-shadow-md animate-bounce">location_on</span>
-            </div>
+          <a href="https://maps.app.goo.gl/o4164NvYdcQKFqMz9?g_st=iw" target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-10"></a>
+          <div className="w-full h-full bg-[#1a2f21] relative overflow-hidden pointer-events-none">
+            <iframe 
+              src="https://maps.google.com/maps?q=Ila%20Kochi%20Restaurant%20Pathadipalam&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%" 
+              height="100%" 
+              className="opacity-70 grayscale group-hover:grayscale-0 transition-all duration-500"
+              style={{ border: 0 }} 
+              loading="lazy" 
+              title="Ila Kochi Restaurant Location Map"
+            ></iframe>
           </div>
           <div className="absolute bottom-3 left-4 right-4 z-20 flex justify-between items-end">
             <div>
@@ -259,7 +264,7 @@ export default function Contact() {
         {/* Direct Contact Actions */}
         <div className="grid grid-cols-2 gap-4">
           <a 
-            href="https://wa.me/1234567890" 
+            href="https://wa.me/919526267626" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex flex-col items-center justify-center gap-2 bg-[#25D366]/10 border border-[#25D366]/20 hover:bg-[#25D366]/20 rounded-xl p-4 transition-all group"
@@ -270,7 +275,7 @@ export default function Contact() {
             <span className="text-[#25D366] font-medium text-sm">WhatsApp Us</span>
           </a>
           <a 
-            href="tel:+919876543210"
+            href="tel:+919526267626"
             className="flex flex-col items-center justify-center gap-2 bg-white/5 border border-white/10 hover:bg-white/10 rounded-xl p-4 transition-all group"
           >
             <div className="w-10 h-10 rounded-full bg-[#fefce8] flex items-center justify-center text-[#0a1f10] group-hover:scale-110 transition-transform">

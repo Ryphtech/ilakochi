@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MobileBottomNav from '../components/MobileBottomNav';
+import { supabase } from '../lib/supabase';
 
 export default function About() {
+  const [chefProfile, setChefProfile] = useState(null);
+  const [loadingChef, setLoadingChef] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase.from('chef_profile').select('*').limit(1).maybeSingle();
+      if (!cancelled) {
+        setChefProfile(data || null);
+        setLoadingChef(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
   return (
     <>
       {/* --- DESKTOP VIEW --- */}
@@ -26,7 +42,7 @@ export default function About() {
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-background-dark">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="flex flex-col gap-8">
-            <span className="text-primary font-bold tracking-widest uppercase text-sm">Since 1924</span>
+            <span className="text-primary font-bold tracking-widest uppercase text-sm">Since 2024</span>
             <h2 className="text-4xl md:text-5xl font-black leading-tight text-cream">The Heritage of Ila</h2>
             <p className="text-cream/70 text-lg leading-relaxed">
                 Named after the Malayalam word for 'leaf', Ila Kochi stands as a testament to the century-old culinary traditions of the Malabar coast. Our restaurant is housed in a restored colonial warehouse, where the scent of aged teak blends with the aroma of freshly ground cardamom.
@@ -60,23 +76,31 @@ export default function About() {
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-forest-accent/30">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row gap-16 items-center bg-background-dark p-12 rounded-3xl border border-primary/10">
-            <div className="w-full md:w-1/3 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
-              <img 
-                alt="Chef" 
-                className="w-full h-full object-cover" 
-                data-alt="Portrait of a visionary chef in a professional kitchen" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9gt8QF3FPdSgSzYl6PBxMQKiMii3q6jAMDPCIqgd2CfsEatFOuxXfKQIGOO5DDMYma1Em8CuWXQUX3okZA-geRl7Ot9xn7edMzu4T7k1E-e9FOOFf5RrXh-j605NGWR2Pyj3yfxCtrZX3huWYJAm-rQbxYJDcw1F3XfDckBBtDGoQa5qSrocDRB1GgfoOmiCg60QDxtLiRdpFh6EssizdZpjIc1vh45GiNT9IX85fnAVOuuyQt9eAQK5XeA9h3rLEuYOI0o2DfFI"
-              />
-            </div>
-            <div className="w-full md:w-2/3 flex flex-col gap-6">
-              <h2 className="text-primary text-4xl font-black">The Visionary</h2>
-              <h3 className="text-2xl font-bold text-cream">Chef Arun Nair</h3>
-              <p className="text-cream/70 text-lg italic leading-relaxed">
-                  "Cooking is not just about ingredients; it's about the memory of the land. At Ila, we serve the geography of Kochi on a plate."
-              </p>
-              <p className="text-cream/70 text-base leading-relaxed">
-                  With over two decades of experience in Michelin-starred kitchens across Europe, Chef Arun returned to his roots to rediscover the nuances of South Indian spice blends. His philosophy focuses on minimal intervention and maximum flavor.
-              </p>
+            {loadingChef ? (
+              <>
+                <div className="w-full md:w-1/3 aspect-[3/4] rounded-2xl bg-[#0a130f]/50 border border-primary/10 animate-pulse"></div>
+                <div className="w-full md:w-2/3 flex flex-col gap-6 animate-pulse">
+                  <div className="h-8 bg-primary/10 w-1/3 rounded"></div>
+                  <div className="h-6 bg-white/5 w-1/2 rounded"></div>
+                  <div className="h-4 bg-white/5 w-full rounded"></div>
+                  <div className="h-4 bg-white/5 w-5/6 rounded"></div>
+                </div>
+              </>
+            ) : chefProfile ? (
+              <>
+                <div className="w-full md:w-1/3 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
+                  <img 
+                    alt="Chef" 
+                    className="w-full h-full object-cover" 
+                    src={chefProfile.image_url}
+                  />
+                </div>
+                <div className="w-full md:w-2/3 flex flex-col gap-6">
+                  <h2 className="text-primary text-4xl font-black">The Visionary</h2>
+                  <h3 className="text-2xl font-bold text-cream">{chefProfile.name}</h3>
+                  <p className="text-cream/70 text-base leading-relaxed whitespace-pre-wrap">
+                      {chefProfile.description}
+                  </p>
               <div className="flex gap-8 border-t border-primary/20 pt-8 mt-4">
                 <div>
                   <p className="text-primary font-bold text-2xl">20+</p>
@@ -92,6 +116,8 @@ export default function About() {
                 </div>
               </div>
             </div>
+          </>
+        ) : null}
           </div>
         </div>
       </section>
@@ -179,7 +205,7 @@ export default function About() {
                 style={{backgroundImage: 'linear-gradient(180deg, rgba(16, 34, 19, 0) 0%, rgba(16, 34, 19, 0.4) 50%, rgba(16, 34, 19, 1) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBM60Gh80AvvcvbOgMkncBinTSqvWLuvQXRrUi_cf3Sud52TcTFijjUWbJJSOqY01BGE1d16DgzRR8yWjA1CfMUlQ55G90u2JM9knMI8Q8a-9SrF9JmU53arjBUYs7u6R3-O0TQlwr63XLStdEAX7m5RkXtdH_3KImSPRi3iIGsbZKFT-3PO1qxyuk-vHw-HikXWf-zK7qwWN4sFvbL9PQHx1-9Z5fY8UtkU-f0u7tn1HVQd0Se31tO7PyRqmKyQD_2TvGVYnIknr0")'}}
               >
                 <div className="relative z-10 flex flex-col p-6 items-center text-center">
-                  <span className="text-[#11d432] text-xs font-bold tracking-[0.2em] uppercase mb-2">Since 1998</span>
+                  <span className="text-[#11d432] text-xs font-bold tracking-[0.2em] uppercase mb-2">Since 2024</span>
                   <h1 className="text-[#f3f0e6] text-4xl font-bold leading-tight mb-2 drop-shadow-md">
                     Rooted in<br/><span className="italic text-[#11d432]">Nature</span>
                   </h1>
@@ -232,20 +258,28 @@ export default function About() {
           <section className="mt-12 px-6 relative">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-12 bg-gradient-to-b from-transparent via-[#d4af37] to-transparent"></div>
             <div className="bg-[#f6f8f6] dark:bg-[#152b19] rounded-2xl p-6 border border-[#11d432]/5 shadow-lg">
-              <div className="flex flex-col items-center">
-                <div className="size-24 rounded-full border-2 border-[#11d432] p-1 mb-4">
-                  <div 
-                    className="w-full h-full rounded-full bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-500" 
-                    data-alt="Portrait of an experienced chef in white uniform" 
-                    style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjNsWpN_nHjbJmHs_yOyUZVEZxYBnRYARFOtlttMkd0hTNEr6fhfItgdDIl9tqOag6Nb-pbQlShVKoj00R5YVMGfqrypHFJFcRrcqXY78k0ywVcX0zf-AMAL-oGFuRajlrjTBPwrkH01wYxt1HvrfmjslxKCgqWTj0Yh-DoiYhrylF3P1S1p4LY49qjvskZFfZTKWmYhIZgPkwOY2WqD7t7n3rJUWjiwL_MnUt0ijqCIBtetTAGOyPS4Xx2ftZn5DzeaCnkSooTDs")'}}
-                  ></div>
+              {loadingChef ? (
+                <div className="flex flex-col items-center animate-pulse">
+                  <div className="size-24 rounded-full bg-white/10 mb-4"></div>
+                  <div className="h-6 bg-white/10 w-32 rounded mb-1"></div>
+                  <div className="h-4 bg-white/10 w-24 rounded mb-4"></div>
+                  <div className="h-16 bg-white/10 w-full rounded"></div>
                 </div>
-                <h3 className="text-slate-900 dark:text-[#f3f0e6] text-xl font-bold mb-1">Chef Anjali Nair</h3>
-                <p className="text-[#11d432] text-xs uppercase tracking-widest mb-4">Head of Culinary</p>
-                <p className="text-center text-slate-600 dark:text-gray-300 text-sm leading-relaxed italic">
-                  "Cooking is not just about ingredients, it's about capturing the soul of the land. Every dish we serve carries the whispers of the Kerala breeze."
-                </p>
-              </div>
+              ) : chefProfile ? (
+                <div className="flex flex-col items-center">
+                  <div className="size-24 rounded-full border-2 border-[#11d432] p-1 mb-4">
+                    <div 
+                      className="w-full h-full rounded-full bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-500" 
+                      style={{backgroundImage: `url("${chefProfile.image_url}")`}}
+                    ></div>
+                  </div>
+                  <h3 className="text-slate-900 dark:text-[#f3f0e6] text-xl font-bold mb-1">{chefProfile.name}</h3>
+                  <p className="text-[#11d432] text-xs uppercase tracking-widest mb-4">Head of Culinary</p>
+                  <p className="text-center text-slate-600 dark:text-gray-300 text-sm leading-relaxed italic whitespace-pre-wrap">
+                    "{chefProfile.description}"
+                  </p>
+                </div>
+              ) : null}
             </div>
           </section>
 
@@ -275,20 +309,25 @@ export default function About() {
               <span className="material-symbols-outlined text-[#d4af37] text-3xl">deck</span>
               <h2 className="text-slate-900 dark:text-[#f3f0e6] text-2xl font-bold">Visit Us</h2>
               <p className="text-slate-600 dark:text-gray-400 text-sm">
-                12/45A Fort Kochi Beach Road,<br/>Kochi, Kerala 682001
+                ILA KOCHI RESTAURANT, Metro Piller No 350,<br/>Pathadipalam, Near Kerala History Museum, kochi Ernamkulam 682024
               </p>
               <div className="w-full h-48 rounded-xl overflow-hidden mt-6 bg-gray-800 relative group cursor-pointer">
-                <img 
-                  alt="Map showing location in Fort Kochi" 
-                  className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity" 
-                  data-location="Kochi, Kerala" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl11lSFnaB9ra5xrermkT34xu1P-KrUdvm115uXqRs9bsCPnPDwc1Y5SJ5px3yOtdZGSoWzRJC4uKr8n0Za6_S_xTxU_FYazALSJpT9QYJ9VEPzFLuGhUygXxvY7kVQl-A0DwSK6DR9FRTQAn6aeNCGex5U3vQgCL5c_Mm938Hbs5X1FewgkhwqsSaOdO8UULIpqHp8qacHAovIUcP-6B8oSnnZLXoy40ceKoTYFPqs_prlim91J7N4QGQPmHl-kV2tiFo9EG93Q8"
-                />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span className="bg-[#102213]/80 text-[#11d432] px-4 py-2 rounded-full text-xs font-bold backdrop-blur-md border border-[#11d432]/20">
-                    Get Directions
-                  </span>
-                </div>
+                <a href="https://maps.app.goo.gl/o4164NvYdcQKFqMz9?g_st=iw" target="_blank" rel="noopener noreferrer" className="w-full h-full block relative">
+                  <iframe 
+                    src="https://maps.google.com/maps?q=Ila%20Kochi%20Restaurant%20Pathadipalam&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    width="100%" 
+                    height="100%" 
+                    className="opacity-70 group-hover:opacity-100 grayscale hover:grayscale-0 transition-opacity duration-300 pointer-events-none"
+                    style={{ border: 0 }} 
+                    loading="lazy" 
+                    title="Ila Kochi Restaurant Location Map"
+                  ></iframe>
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
+                    <span className="bg-[#102213]/90 text-[#11d432] px-4 py-2 rounded-full text-xs font-bold backdrop-blur-md border border-[#11d432]/30 shadow-lg">
+                      Get Directions
+                    </span>
+                  </div>
+                </a>
               </div>
             </div>
           </section>

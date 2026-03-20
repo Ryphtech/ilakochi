@@ -461,21 +461,24 @@ export default function Home() {
           {/* Location & Hours */}
           <div className="px-6 mb-10 relative z-10">
             <div className="bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
-              <div className="w-full h-40 relative overflow-hidden">
-                <img 
-                  alt="Fort Kochi location" 
-                  className="w-full h-full object-cover opacity-70" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9EkbwhrW6U5JixUDOdDWL4wvOBDKAji0KX34y6kiVL7Tda5RFQ04yloIG4SoPREHrQdV4PJIqz_fPyKORZLyrotRm6_3iqAM6quCuucJlfa2q6uCnzMYuL5RAGz1oJ-QI128ERnWRcNpRpbaF2bHgcgcyuOUlU6_2vdYj0LSVsuoCwZLMjtTDfrbniQCf3GtrmaYmUq6iRXH6LE8vhha3wJZpN_jrR3PRpiE9cSFwp3j0X7mZ9Z_ZpZQYbSN7sT_ZBnUudlULCpo"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#102213] to-transparent"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <span className="material-symbols-outlined text-[#f2cc0d] text-4xl animate-bounce">location_on</span>
+              <div className="w-full h-40 relative overflow-hidden group">
+                <a href="https://maps.app.goo.gl/o4164NvYdcQKFqMz9?g_st=iw" target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-10"></a>
+                <div className="w-full h-full pointer-events-none">
+                  <iframe 
+                    src="https://maps.google.com/maps?q=Ila%20Kochi%20Restaurant%20Pathadipalam&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    width="100%" 
+                    height="100%" 
+                    className="opacity-70 group-hover:opacity-100 grayscale hover:grayscale-0 transition-opacity duration-300"
+                    style={{ border: 0 }} 
+                    loading="lazy" 
+                    title="Ila Kochi Restaurant Location Map"
+                  ></iframe>
                 </div>
               </div>
               <div className="p-5 space-y-4">
                 <div>
-                  <h4 className="text-[#f0f2e6] font-bold text-base">Fort Kochi, Kerala</h4>
-                  <p className="text-[#f0f2e6]/50 text-xs mt-1">123 Coastal Road, Heritage Block, Cochin 682001</p>
+                  <h4 className="text-[#f0f2e6] font-bold text-base">ILA KOCHI RESTAURANT</h4>
+                  <p className="text-[#f0f2e6]/50 text-xs mt-1">Metro Piller No 350, Pathadipalam, Near Kerala History Museum, kochi Ernamkulam 682024</p>
                 </div>
                 <div className="flex gap-4">
                   <div className="flex items-center gap-2">

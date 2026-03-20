@@ -96,3 +96,25 @@ INSERT INTO gallery_images (title, category, image_url, display_order) VALUES
   ('Heritage Feast', 'food', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCchDHDfCDkw7K6ELRUfQ1jkyf-ZagSDO7h3FTIo99ie8nJTqzF1puwOVNTreumE66-_QraVSvFfV5eR_XHr-KC40l3DFxswe6-ikyn0vnY4XorZzZ3OIg-yjC2pF_qwgV8qP9Vpx3gSnKnXzU2rIy6Mi8jWSJt3k6hAZQSKvnuQ2bxoq__gMbMTNFUmU1JOOHEY9vdxfDl9OdTjOB3rmxfU-oF5MwqkXWFJym141J494169_8QvqaML0xAX6eBgQ23eTOl2oRxK8g', 10),
   ('Island Refresh', 'food', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnf7E7QI6QKJApMLrUkvzLhdOlfoee_hRMPmEBoaPrE-gyX_RACUf1c3EcuqaB2Dv5witxZhDaVmf4n8O75hcqfaZw8InaL3T6CFhhrTjjdFmiAVUmK0c8z74KWHxpjbVVFzvOyJ__IDP-JUuCbBYFmWCZvSeEo1e8CWl8gU_mXqjFmkXbWorPh-roC1uo0bFnWHFruUs-YIRN2u5BIvs08blgeYa0XhbmSMQmSDUsOTYYe8orabQTdAWZx21PWO2gBUv6LXx-84E', 11),
   ('Sunlight Dining', 'ambience', 'https://lh3.googleusercontent.com/aida-public/AB6AXuBcct9nb9Nss5mmsivaWSFib_CqIxCbflUamDAosJPM8jJFr8q4W9tsjCpsdGxpQ2hB3_DPKhLF8FEheJFa_npFAK-EsWMMzGf_1M3Asiq_M1iXqDU0dpkrn2YzqQk2loCXDlDI1L5fD10sC61epddh--Na-TCqCuhnOwZJnIH_obuJoOhi-TT2igXaMZO_2rpRVeVVvfnY85YSZXuYdUaz3I2PNnccHrnfUoC06FlL-wf-nop9kraxde3JMzowzL4z6vnEPE17blU', 12);
+
+-- ============================================
+-- TABLE: chef_profile
+-- ============================================
+CREATE TABLE IF NOT EXISTS chef_profile (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  image_url TEXT NOT NULL,
+  description TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+ALTER TABLE chef_profile ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public can read chef_profile" ON chef_profile FOR SELECT USING (true);
+CREATE POLICY "Auth users can insert chef_profile" ON chef_profile FOR INSERT WITH CHECK (true);
+CREATE POLICY "Auth users can update chef_profile" ON chef_profile FOR UPDATE USING (true);
+CREATE POLICY "Auth users can delete chef_profile" ON chef_profile FOR DELETE USING (true);
+
+-- Seed initial Chef
+INSERT INTO chef_profile (name, description, image_url) VALUES
+  ('Chef Arun Nair', 'With over two decades of experience in Michelin-starred kitchens across Europe, Chef Arun returned to his roots to rediscover the nuances of South Indian spice blends.', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCLnFv4D5T0M51e_aF5Jj5l56a7x_v5OaF9_M3L3U4Qf1X_D6rA0QW5A3eGZzBf0kE4zKZy4iF_T5Xn1S5U7d1eQy1uH_M8X2A7o2W4T6j3F8B0W5Z9n2J6Y7vX8L1D4K2T5R4F1eY8H4K5J7L0W9B8V7Y8H9D2K4X0C1V8T6U9K4J5L8N7M9A3B5V6X9L1K4R8Y7');

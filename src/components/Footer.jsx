@@ -25,9 +25,24 @@ export default function Footer() {
         
         <div>
           <h4 className="text-white font-bold mb-6">Location</h4>
-          <p className="text-slate-400 text-sm mb-4">12 Marina Drive, Kochi<br/>Kerala, India 682001</p>
-          <div className="w-full h-32 rounded-lg bg-slate-800/50 flex items-center justify-center overflow-hidden">
-            <img className="w-full h-full object-cover opacity-50" alt="Map of Kochi city center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrJNywHlYVUmrGchKUfRHHRgFpMy66iAxB2tP4OhU74iyHEVsqqj1e7QfRl5OkmM9Lj36cUMB_jiPxLr4CwHaO0LTNBXRUpHEYpQTIB9XX0hMaym5kQgf7_OKPmv8Cy8L46KK7AGfBw0cqSB1wvt-5zk_0Hu40SYhKHDTsCDJGDLbIH_wxNZ9QbfiAyZLwWX0pZPIkGz9kFe1jSyDT3LueuWubwkf4QdVY92tur1xKNXgl5sIie40r1uIzTiYGq0StqARqrKW_QE8"/>
+          <p className="text-slate-400 text-sm mb-4">ILA KOCHI RESTAURANT, Metro Piller No 350<br/>Pathadipalam, Near Kerala History Museum, kochi Ernamkulam 682024</p>
+          <div className="w-full h-32 rounded-lg bg-slate-800/50 flex items-center justify-center overflow-hidden relative group">
+            <a href="https://maps.app.goo.gl/o4164NvYdcQKFqMz9?g_st=iw" target="_blank" rel="noopener noreferrer" className="w-full h-full block relative">
+              <iframe 
+                src="https://maps.google.com/maps?q=Ila%20Kochi%20Restaurant%20Pathadipalam&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                width="100%" 
+                height="100%" 
+                className="opacity-60 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all duration-500 pointer-events-none"
+                style={{ border: 0 }} 
+                loading="lazy" 
+                title="Ila Kochi Restaurant Location Map"
+              ></iframe>
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
+                <span className="bg-[#102213]/90 text-[#11d432] px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-md border border-[#11d432]/30 shadow-lg">
+                  Get Directions
+                </span>
+              </div>
+            </a>
           </div>
         </div>
         

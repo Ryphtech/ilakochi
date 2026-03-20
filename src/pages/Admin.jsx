@@ -9,6 +9,7 @@ export default function Admin() {
   const [activeTab, setActiveTab] = useState('menu');
   const [menuItems, setMenuItems] = useState([]);
   const [galleryImages, setGalleryImages] = useState([]);
+  const [chefProfile, setChefProfile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
@@ -22,6 +23,9 @@ export default function Admin() {
   const [galleryForm, setGalleryForm] = useState({
     title: '', category: 'food', image_url: '', display_order: 0
   });
+  const [chefForm, setChefForm] = useState({
+    name: '', description: '', image_url: ''
+  });
 
   const showMessage = (text, type = 'success') => {
     setMessage({ text, type });
@@ -33,13 +37,20 @@ export default function Admin() {
     if (tab === 'menu') {
       const { data, error } = await supabase.from('menu_items').select('*').order('display_order');
       if (!error) setMenuItems(data || []);
-    } else {
+    } else if (tab === 'gallery') {
       const { data, error } = await supabase.from('gallery_images').select('*').order('display_order');
       if (!error) setGalleryImages(data || []);
+    } else if (tab === 'chef') {
+      const { data, error } = await supabase.from('chef_profile').select('*').limit(1).maybeSingle();
+      if (!error && data) {
+        setChefProfile(data);
+        setChefForm({ name: data.name, description: data.description || '', image_url: data.image_url });
+      }
     }
     setLoading(false);
   };
 
+  // eslint-disable-next-line
   useEffect(() => {
     if (isAuthenticated) {
       fetchData(activeTab);
@@ -72,8 +83,10 @@ export default function Admin() {
     const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(filePath);
     if (activeTab === 'menu') {
       setMenuForm(prev => ({ ...prev, image_url: publicUrl }));
-    } else {
+    } else if (activeTab === 'gallery') {
       setGalleryForm(prev => ({ ...prev, image_url: publicUrl }));
+    } else if (activeTab === 'chef') {
+      setChefForm(prev => ({ ...prev, image_url: publicUrl }));
     }
     setUploading(false);
     showMessage('Image uploaded!');
@@ -131,6 +144,22 @@ export default function Admin() {
     const { error } = await supabase.from('gallery_images').delete().eq('id', id);
     if (error) showMessage('Error: ' + error.message, 'error');
     else { showMessage('Deleted!'); fetchData(activeTab); }
+  };
+
+  const handleChefSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (chefProfile) {
+      const { error } = await supabase.from('chef_profile').update(chefForm).eq('id', chefProfile.id);
+      if (error) showMessage('Error updating: ' + error.message, 'error');
+      else showMessage('Chef profile updated!');
+    } else {
+      const { error } = await supabase.from('chef_profile').insert(chefForm);
+      if (error) showMessage('Error adding: ' + error.message, 'error');
+      else showMessage('Chef profile added!');
+    }
+    fetchData('chef');
+    setLoading(false);
   };
 
   const startEdit = (item) => {
@@ -219,25 +248,36 @@ export default function Admin() {
             <span className="material-symbols-outlined text-[18px] mr-2 align-middle">photo_library</span>
             Gallery ({galleryImages.length})
           </button>
+          <button
+            onClick={() => { setActiveTab('chef'); resetForm(); }}
+            className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${activeTab === 'chef' ? 'bg-primary text-[#0d1a0d]' : 'bg-[#15271f] border border-[#213e31] text-slate-300 hover:text-white'}`}
+          >
+            <span className="material-symbols-outlined text-[18px] mr-2 align-middle">person</span>
+            Chef Profile
+          </button>
         </div>
 
         {/* Add Button */}
-        <button
-          onClick={() => { resetForm(); setShowForm(true); }}
-          className="mb-6 bg-primary/10 border border-primary/30 text-primary px-6 py-3 rounded-xl font-bold text-sm hover:bg-primary/20 transition-colors flex items-center gap-2"
-        >
-          <span className="material-symbols-outlined text-[20px]">add_circle</span>
-          Add {activeTab === 'menu' ? 'Menu Item' : 'Gallery Image'}
-        </button>
+        {activeTab !== 'chef' && (
+          <button
+            onClick={() => { resetForm(); setShowForm(true); }}
+            className="mb-6 bg-primary/10 border border-primary/30 text-primary px-6 py-3 rounded-xl font-bold text-sm hover:bg-primary/20 transition-colors flex items-center gap-2"
+          >
+            <span className="material-symbols-outlined text-[20px]">add_circle</span>
+            Add {activeTab === 'menu' ? 'Menu Item' : 'Gallery Image'}
+          </button>
+        )}
 
         {/* Form */}
-        {showForm && (
+        {(showForm || activeTab === 'chef') && (
           <div className="bg-[#15271f] border border-[#213e31] rounded-2xl p-6 mb-8">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg font-bold">{editingItem ? 'Edit' : 'Add'} {activeTab === 'menu' ? 'Menu Item' : 'Gallery Image'}</h2>
-              <button onClick={resetForm} className="text-slate-400 hover:text-white">
-                <span className="material-symbols-outlined">close</span>
-              </button>
+              <h2 className="text-lg font-bold">{activeTab === 'chef' ? 'Manage Chef Profile' : editingItem ? 'Edit' : 'Add'} {activeTab === 'menu' ? 'Menu Item' : activeTab === 'gallery' ? 'Gallery Image' : ''}</h2>
+              {activeTab !== 'chef' && (
+                <button onClick={resetForm} className="text-slate-400 hover:text-white">
+                  <span className="material-symbols-outlined">close</span>
+                </button>
+              )}
             </div>
 
             {activeTab === 'menu' ? (
@@ -291,7 +331,7 @@ export default function Admin() {
                   <button type="button" onClick={resetForm} className="border border-[#213e31] px-6 py-3 rounded-xl text-slate-400 hover:text-white transition-colors">Cancel</button>
                 </div>
               </form>
-            ) : (
+            ) : activeTab === 'gallery' ? (
               <form onSubmit={handleGallerySubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -329,12 +369,41 @@ export default function Admin() {
                   <button type="button" onClick={resetForm} className="border border-[#213e31] px-6 py-3 rounded-xl text-slate-400 hover:text-white transition-colors">Cancel</button>
                 </div>
               </form>
+            ) : (
+              <form onSubmit={handleChefSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm text-slate-400 mb-1">Name *</label>
+                    <input required value={chefForm.name} onChange={e => setChefForm(p => ({...p, name: e.target.value}))} className="w-full bg-[#0a130f] border border-[#213e31] rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-primary/50 focus:outline-none text-sm" />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-slate-400 mb-1">Image *</label>
+                    <div className="flex gap-3 items-end">
+                      <input required value={chefForm.image_url} onChange={e => setChefForm(p => ({...p, image_url: e.target.value}))} placeholder="Image URL or upload below" className="flex-1 bg-[#0a130f] border border-[#213e31] rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-primary/50 focus:outline-none text-sm" />
+                      <label className={`cursor-pointer bg-[#213e31] px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-[#2a5040] transition-colors ${uploading ? 'opacity-50' : ''}`}>
+                        {uploading ? 'Uploading...' : 'Upload'}
+                        <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" disabled={uploading} />
+                      </label>
+                    </div>
+                    {chefForm.image_url && <img src={chefForm.image_url} alt="Preview" className="mt-3 w-20 h-20 object-cover rounded-lg border border-[#213e31]" />}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm text-slate-400 mb-1">Bio Description *</label>
+                  <textarea required value={chefForm.description} onChange={e => setChefForm(p => ({...p, description: e.target.value}))} rows="4" className="w-full bg-[#0a130f] border border-[#213e31] rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-primary/50 focus:outline-none text-sm resize-none" />
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <button type="submit" disabled={loading} className="bg-primary text-[#0d1a0d] font-bold px-8 py-3 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-50">
+                    Save Chef Profile
+                  </button>
+                </div>
+              </form>
             )}
           </div>
         )}
 
         {/* Data Table */}
-        {loading && !showForm ? (
+        {activeTab === 'chef' ? null : loading && !showForm ? (
           <div className="flex justify-center py-20">
             <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full"></div>
           </div>

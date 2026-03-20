@@ -44,9 +44,6 @@ const MobileMenuItem = ({ item }) => (
     </div>
     <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
       {item.image_url && <img alt={item.name} className="h-full w-full object-cover" src={item.image_url} />}
-      <button className="absolute bottom-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-[#2bee4b] text-[#102213] shadow-lg">
-        <span className="material-symbols-outlined text-[14px] font-bold">add</span>
-      </button>
     </div>
   </div>
 );
